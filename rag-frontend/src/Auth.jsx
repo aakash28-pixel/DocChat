@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { supabase } from './supabaseClient'
+import Turnstile, { turnstileEnabled, resetTurnstile } from './Turnstile'
 
 // Shown after the user clicks the recovery link in their email
 // (Supabase signs them in and fires PASSWORD_RECOVERY — App renders this).
@@ -62,6 +63,7 @@ function Auth(props) {
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
   const [busy, setBusy] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -70,16 +72,25 @@ function Auth(props) {
     setBusy(true)
     try {
       if (mode === 'login') {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+          options: { captchaToken },
+        })
         if (error) throw error
       } else if (mode === 'forgot') {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: window.location.origin,
+          captchaToken,
         })
         if (error) throw error
         setNotice('If an account exists for that email, a reset link is on its way.')
       } else {
-        const { data, error } = await supabase.auth.signUp({ email, password })
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { captchaToken },
+        })
         if (error) throw error
         if (data.user && !data.session) {
           setNotice('Check your email to confirm your account, then log in.')
@@ -89,6 +100,11 @@ function Auth(props) {
       setError(err.message || 'Authentication failed.')
     } finally {
       setBusy(false)
+      // captcha tokens are single-use — get a fresh one for the next attempt
+      if (turnstileEnabled) {
+        resetTurnstile()
+        setCaptchaToken(null)
+      }
     }
   }
 
@@ -165,9 +181,11 @@ function Auth(props) {
           {error && <p className="text-xs text-red-600 dark:text-red-400">{error}</p>}
           {notice && <p className="text-xs text-emerald-600 dark:text-emerald-400">{notice}</p>}
 
+          <Turnstile onToken={setCaptchaToken} />
+
           <button
             type="submit"
-            disabled={busy}
+            disabled={busy || (turnstileEnabled && !captchaToken)}
             className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:text-slate-500 dark:disabled:text-slate-400
                        text-white text-sm font-medium rounded-xl py-2.5 transition"
           >
