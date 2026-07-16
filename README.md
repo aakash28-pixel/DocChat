@@ -2,7 +2,7 @@
 
 **DocChat** is a production-ready Retrieval-Augmented Generation (RAG) Document Q&A application engineered to seamlessly interact with your documents. Moving beyond basic search, DocChat acts as an intelligent assistant that provides accurate, context-aware answers directly from your uploaded source material, with citations you can trust.
 
-🌐 **Live Website & App:** https://doc-chat-git-main-akashbaloch28-4165s-projects.vercel.app/
+🌐 **Live Website & App:** https://doc-chat-theta-three.vercel.app/#
 
 🔗 ✨ **Standout Features**
 ---
@@ -31,21 +31,21 @@ Users simply upload their documents, and DocChat processes the data in the backg
 A seamless visual experience from introduction to call-to-action.
 
 <p align="center">
-  <img src="Screenshot 2026-07-16 at 2.24.42 PM.png" alt="DocChat Landing Page Hero" width="30%" />
-  <img src="Screenshot 2026-07-16 at 2.25.02 PM.jpg" alt="DocChat Feature Cards" width="30%" /> 
-  <img src="Screenshot 2026-07-16 at 2.25.21 png" alt="DocChat How it Works & CTA" width="30%" />
+  <img width="30%" alt="DocChat Landing Page Hero" src="https://github.com/user-attachments/assets/004fb73d-8547-4469-8ac7-316719caf8d7" />
+  <img width="30%" alt="DocChat Feature Cards" src="https://github.com/user-attachments/assets/02751919-3648-472c-921d-b07387388ed2" />
+  <img width="30%" alt="DocChat How it Works & CTA" src="https://github.com/user-attachments/assets/6a203103-5fd9-4ca7-8230-e7d1f5bf67d8" />
 </p>
 
 ### Core Application Experience
 A clean and intuitive user interface designed for production.
 
-| | | |
-| --- | --- | --- |
-| **Login with Turnstile**<br><img src="Screenshot 2026-07-16 at 2.25.44 PM.png" alt="DocChat Login Page" width="100%" /> | **Application Overview**<br><img src="Screenshot 2026-07-16 at 2.26.46 PM.png" alt="DocChat Application View" width="100%" /> | **Document Summary**<br><img src="Screenshot 2026-07-16 at 2.29.17 PM.jpg" alt="DocChat Summary View" width="100%" /> |
+| Login with Turnstile | Application Overview | Document Summary |
+| :-: | :-: | :-: |
+| <img alt="DocChat Login Page" src="https://github.com/user-attachments/assets/c3ca3f56-537c-47f4-b3de-0e8432d7e99b" width="100%"/> | <img alt="DocChat Application View" src="https://github.com/user-attachments/assets/2d72a6fd-6a0a-4d05-b2ba-7d3e4246c5d0" width="100%"/> | <img alt="DocChat Summary View" src="https://github.com/user-attachments/assets/42936745-ac75-4688-9436-ff8e1cc1655a" width="100%"/> |
 
 ### Document Conversation with Citations
 Interact with documents in your native language (including Roman Urdu) with verifiable page-level citations.
 
 <p align="center">
-  <img src="Screenshot 2026-07-16 at 2.29.48 PM.jpg" alt="DocChat Full Conversation View" width="70%" />
+  <img width="70%" alt="DocChat Full Conversation View" src="https://github.com/user-attachments/assets/ecc2b46d-5fa4-4299-93e6-53d11ab611b8" />
 </p>
