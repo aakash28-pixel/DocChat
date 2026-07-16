@@ -1,0 +1,8 @@
+# Automatic HTTPS via Let's Encrypt for both hostnames.
+{$DOMAIN} {
+	reverse_proxy frontend:80
+}
+
+api.{$DOMAIN} {
+	reverse_proxy backend:8000
+}

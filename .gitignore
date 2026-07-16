@@ -1,0 +1,27 @@
+# ── secrets: NEVER commit ────────────────────────────────────────────
+.env
+*/.env
+.env.local
+
+# ── python ───────────────────────────────────────────────────────────
+rag-backend/venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# ── user data (never belongs in git) ─────────────────────────────────
+rag-backend/chroma_db/
+rag-backend/uploads/
+backups/
+
+# ── node / build ─────────────────────────────────────────────────────
+node_modules/
+rag-frontend/dist/
+
+# ── misc ─────────────────────────────────────────────────────────────
+.DS_Store
+*.log
+
+# ── unrelated to DocChat ────────────────────────────────────────────
+it-asset-dashboard/
+.claude/

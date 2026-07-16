@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+pymupdf
+chromadb
+langchain
+langchain-text-splitters
+langchain-google-genai
+langchain-anthropic
+# Pinned: newer versions have no prebuilt wheel for this Python/macOS combo
+cryptography<45
+supabase
+slowapi
+pytesseract
+pillow
+sentry-sdk[fastapi]

@@ -1,0 +1,50 @@
+# All-in-one VPS deployment: backend + frontend + Caddy (automatic HTTPS).
+# Supabase (auth + Postgres) stays managed in the cloud — not in this file.
+#
+#   1. Point DNS:  A record  $DOMAIN → your server IP,  A record  api.$DOMAIN → same IP
+#   2. cp .env.deploy.example .env   and fill it in
+#   3. docker compose up -d --build
+# Caddy fetches Let's Encrypt certs for both hostnames automatically.
+
+services:
+  backend:
+    build: ./rag-backend
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - data:/data # ChromaDB + uploaded PDFs persist here
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./rag-frontend
+      args:
+        VITE_API_BASE: https://api.${DOMAIN}
+        VITE_SUPABASE_URL: ${SUPABASE_URL}
+        VITE_SUPABASE_ANON_KEY: ${SUPABASE_ANON_KEY}
+        VITE_SENTRY_DSN: ${VITE_SENTRY_DSN:-}
+    restart: unless-stopped
+    expose:
+      - "80"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - DOMAIN=${DOMAIN}
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  data:
+  caddy_data:
+  caddy_config:

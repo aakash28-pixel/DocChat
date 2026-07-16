@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rag-backend
+    env:
+      # Dummy Supabase config so is_configured() is True and the auth-rejection
+      # tests get 401 (validate_token fails against the .invalid host → None).
+      SUPABASE_URL: https://dummy.invalid
+      SUPABASE_ANON_KEY: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install system deps (Tesseract for OCR)
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+      - name: Run tests
+        run: python -m pytest test_security.py -q
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: rag-frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: rag-frontend/package-lock.json
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
