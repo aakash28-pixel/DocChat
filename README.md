@@ -1,51 +1,157 @@
+<div align="center">
+
 # 📄 DocChat
 
-**DocChat** is a production-ready Retrieval-Augmented Generation (RAG) Document Q&A application engineered to seamlessly interact with your documents. Moving beyond basic search, DocChat acts as an intelligent assistant that provides accurate, context-aware answers directly from your uploaded source material, with citations you can trust.
+**Chat with your PDFs — with citations you can trust.**
 
-🌐 **Live Website & App:** https://doc-chat-theta-three.vercel.app/#
+Upload a document, ask questions in plain language, and get answers grounded in your PDF —
+with clickable, page-level citations. In English, Roman Urdu, and more.
 
-🔗 ✨ **Standout Features**
+[![Live Demo](https://img.shields.io/badge/demo-live-4f46e5?style=for-the-badge)](https://doc-chat-theta-three.vercel.app)
+[![CI](https://github.com/aakash28-pixel/DocChat/actions/workflows/ci.yml/badge.svg)](https://github.com/aakash28-pixel/DocChat/actions/workflows/ci.yml)
+
+[![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white&labelColor=20232a)](https://react.dev)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Python-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
+[![LangChain](https://img.shields.io/badge/LangChain-RAG-1c3c3c?logo=langchain&logoColor=white)](https://langchain.com)
+[![ChromaDB](https://img.shields.io/badge/ChromaDB-vectors-ff6b6b)](https://trychroma.com)
+[![Supabase](https://img.shields.io/badge/Supabase-auth%20%2B%20db-3fcf8e?logo=supabase&logoColor=white)](https://supabase.com)
+[![Gemini](https://img.shields.io/badge/Gemini-LLM-4285f4?logo=googlegemini&logoColor=white)](https://ai.google.dev)
+
+**🌐 Try it live → [doc-chat-theta-three.vercel.app](https://doc-chat-theta-three.vercel.app)**
+
+<img src="docs/screenshots/chat-citations.png" alt="DocChat answering in Roman Urdu with clickable page-level citations" width="90%" />
+
+*A question asked in Roman Urdu, answered from an English Samsung manual — every claim
+tagged with a citation chip that opens the exact source page.*
+
+</div>
+
 ---
-* 🤖 **Advanced RAG Pipeline:** Efficient document parsing and intelligent question-answering capabilities for immediate insights, with ground-truth verification.
-* 🔒 **Enhanced Security:** Integrated with Cloudflare Turnstile CAPTCHA for secure, environment-gated authentication, keeping unauthorized access out.
-* 🐳 **Production-Ready Architecture:** Clean separation of concerns with dedicated `rag-frontend` and `rag-backend` modules, fully containerized via Docker for scalable deployment.
-* ⚙️ **Automated CI/CD:** Integrated GitHub Actions workflows for continuous integration and automated testing (Pytest) ensuring zero compromise on code quality.
-* ⚡ **One-Command Setup:** Custom scripts included to instantly spin up the backend and establish secure tunnels for rapid deployment and development.
 
-🛠️ **Technical Stack & Workflow**
----
-* **Platform:** Web Application (Cross-platform accessibility architecture).
-* **Methodology:** Containerized microservices architecture for scalable deployment and rapid prototyping.
-* **Deployment Architecture:** End-to-end product deployment utilizing Docker Compose and Caddy as a reverse proxy for secure production environments.
+## ✨ Why DocChat
 
-🚀 **How It Works**
----
-Users simply upload their documents, and DocChat processes the data in the background using a state-of-the-art RAG pipeline. Once the context is set, users can query the application, and the system intelligently retrieves the most relevant information, neutralizing the need for manual document searching.
+Most "chat with your PDF" tools are black boxes — you get an answer and have to hope
+it's real. DocChat is built around **verifiability**:
 
-*Built with passion and advanced AI workflows by Aakash Ali.*
+- 🔍 **Page-level citations** — every answer carries `[1]`-style chips; click one and a
+  built-in PDF viewer (pdf.js) opens the exact cited page with the source snippet.
+- 🌐 **Multilingual by design** — ask in English, Roman Urdu, or Hindi; DocChat reads
+  your (possibly English) document and replies in the language you asked in.
+- 📚 **One doc or all of them** — scope a chat to a single PDF, or search across your
+  whole library with per-document attribution.
+- ⚡ **Handles messy PDFs** — multi-column manuals, scanned pages (Tesseract OCR
+  fallback), 300-page documents; parsed per-page and streamed token-by-token (SSE).
+- 🧠 **Real product features** — persistent conversations, auto-summary on upload,
+  AI-suggested starter questions, drag-and-drop with staged ingestion progress,
+  Markdown/PDF export, light/dark theme, mobile-ready.
+- 🔒 **Security first** — Supabase JWT on every endpoint, strict per-user isolation in
+  both Postgres (RLS) and the vector store, Cloudflare Turnstile CAPTCHA, per-user rate
+  limits, magic-byte upload validation, and a 25-test security suite in CI.
 
-📸 **Application Screenshots**
----
+## 📸 Screenshots
 
-### Landing Page Flow
-A seamless visual experience from introduction to call-to-action.
+### Landing page
 
-<p align="center">
-  <img width="30%" alt="DocChat Landing Page Hero" src="https://github.com/user-attachments/assets/004fb73d-8547-4469-8ac7-316719caf8d7" />
-  <img width="30%" alt="DocChat Feature Cards" src="https://github.com/user-attachments/assets/02751919-3648-472c-921d-b07387388ed2" />
-  <img width="30%" alt="DocChat How it Works & CTA" src="https://github.com/user-attachments/assets/6a203103-5fd9-4ca7-8230-e7d1f5bf67d8" />
-</p>
-
-### Core Application Experience
-A clean and intuitive user interface designed for production.
-
-| Login with Turnstile | Application Overview | Document Summary |
+| Hero | Features | How it works |
 | :-: | :-: | :-: |
-| <img alt="DocChat Login Page" src="https://github.com/user-attachments/assets/c3ca3f56-537c-47f4-b3de-0e8432d7e99b" width="100%"/> | <img alt="DocChat Application View" src="https://github.com/user-attachments/assets/2d72a6fd-6a0a-4d05-b2ba-7d3e4246c5d0" width="100%"/> | <img alt="DocChat Summary View" src="https://github.com/user-attachments/assets/42936745-ac75-4688-9436-ff8e1cc1655a" width="100%"/> |
+| ![Landing hero](docs/screenshots/landing-hero.png) | ![Feature cards](docs/screenshots/landing-features.png) | ![How it works](docs/screenshots/landing-how-it-works.png) |
 
-### Document Conversation with Citations
-Interact with documents in your native language (including Roman Urdu) with verifiable page-level citations.
+### Inside the app
 
-<p align="center">
-  <img width="70%" alt="DocChat Full Conversation View" src="https://github.com/user-attachments/assets/ecc2b46d-5fa4-4299-93e6-53d11ab611b8" />
-</p>
+| Clean workspace | Auto-summary + suggested questions |
+| :-: | :-: |
+| ![Application overview](docs/screenshots/app-overview.png) | ![Document summary and suggested questions](docs/screenshots/summary-suggestions.png) |
+
+## 🚀 How it works
+
+```
+ PDF upload ──▶ per-page parse (PyMuPDF) ──▶ OCR fallback (Tesseract)
+                      │
+                      ▼
+        chunk (LangChain) ──▶ embed locally (MiniLM) ──▶ ChromaDB
+                                                            │
+ question ──▶ history-aware retrieval (top-k, per-user) ────┤
+                                                            ▼
+              Gemini (numbered context) ──▶ SSE stream ──▶ answer + [n] citations
+```
+
+1. **Upload** — parsing, OCR, chunking, and embedding run as a background job; the UI
+   polls real staged progress (`parsing → chunking → embedding → ready`).
+2. **Ask** — retrieval is scoped to *your* documents (and optionally one file); the LLM
+   sees numbered passages and must cite them.
+3. **Verify & export** — click citations to view the source page; export the whole
+   conversation to Markdown or PDF.
+
+## 🛠️ Tech stack
+
+| Layer | Choice |
+| --- | --- |
+| Frontend | React 19 + Vite, Tailwind CSS v4, pdf.js, react-markdown |
+| Backend | FastAPI (Python), LangChain, SSE streaming, slowapi rate limiting |
+| Vector store | ChromaDB (local, MiniLM embeddings — no embedding API cost) |
+| Auth + DB | Supabase (JWT auth, Postgres with Row Level Security) |
+| LLM | Google Gemini (`gemini-2.5-flash`), Claude-ready via env switch |
+| OCR | Tesseract (per-page fallback for scanned documents) |
+| Anti-bot | Cloudflare Turnstile CAPTCHA |
+| Observability | Structured logging, optional Sentry (frontend + backend) |
+| CI/CD | GitHub Actions (pytest security suite + lint + build), Vercel auto-deploy |
+| Containers | Dockerfiles + docker-compose + Caddy (auto-HTTPS) for VPS deployment |
+
+## 🏁 Getting started (local)
+
+**Prerequisites:** Python 3.9+, Node 20+, Tesseract (`brew install tesseract`), a
+[Supabase](https://supabase.com) project (free), a Gemini API key (free tier works).
+
+```bash
+git clone https://github.com/aakash28-pixel/DocChat.git
+cd DocChat
+
+# ── backend ──
+cd rag-backend
+python3 -m venv venv && ./venv/bin/pip install -r requirements.txt
+cp .env.example .env        # fill in LLM_API_KEY + Supabase creds
+# apply migrations/0*.sql in the Supabase SQL editor (once)
+./venv/bin/uvicorn main:app --reload --port 8000
+
+# ── frontend ──
+cd ../rag-frontend
+npm install
+cp .env.example .env        # fill in the VITE_SUPABASE_* values
+npm run dev                 # → http://localhost:5173
+```
+
+Run the security test suite:
+
+```bash
+cd rag-backend && ./venv/bin/pytest test_security.py -v
+```
+
+## 🔐 Security model
+
+- Identity comes **only** from the validated Supabase JWT — never from request bodies.
+- Tenant isolation is enforced twice: Postgres RLS policies *and* `user_id` filters on
+  every vector query (with IDOR tests proving user A can't read/delete user B's data).
+- Uploads are validated by extension, MIME, **magic bytes**, size, and page count;
+  filenames are sanitized before touching the filesystem.
+- Per-user rate limits (burst + daily quotas) protect the LLM budget.
+- Raw provider errors are never shown to users; full errors go to server logs only.
+
+## 📦 Deployment
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for the full guide, including a $0 launch path
+(Vercel + tunnel) and a one-command VPS setup (`docker-compose` + Caddy auto-HTTPS),
+plus migrations, backups, and cost estimates.
+
+```bash
+./scripts/go-live.sh   # start backend + tunnel with one command
+```
+
+---
+
+<div align="center">
+
+Built with passion by **[Aakash Ali](https://github.com/aakash28-pixel)** 🇵🇰
+
+*If this project helped you, a ⭐ means a lot!*
+
+</div>
