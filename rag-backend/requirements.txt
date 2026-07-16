@@ -15,3 +15,6 @@ slowapi
 pytesseract
 pillow
 sentry-sdk[fastapi]
+
+# testing
+pytest
