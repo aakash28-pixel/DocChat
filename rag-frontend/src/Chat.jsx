@@ -28,6 +28,11 @@ function CopyButton({ text }) {
 }
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000'
+
+// Free-tier ngrok tunnels show a browser interstitial that breaks API calls;
+// this header skips it. Inert for any other backend host.
+axios.defaults.headers.common['ngrok-skip-browser-warning'] = 'true'
+const TUNNEL_HEADER = { 'ngrok-skip-browser-warning': 'true' }
 const RATE_LIMIT_MSG =
   'You are sending too many requests. Please wait a minute and try again.'
 
@@ -528,6 +533,7 @@ function Chat({ session, onLegal }) {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
+          ...TUNNEL_HEADER,
         },
         body: JSON.stringify({
           query,

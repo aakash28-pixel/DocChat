@@ -31,7 +31,13 @@ function PdfViewer({ viewer, onClose, accessToken }) {
       try {
         const res = await fetch(
           `${API_BASE}/files/${encodeURIComponent(viewer.source)}`,
-          { headers: { Authorization: `Bearer ${accessToken}` } }
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              // skip ngrok free-tier interstitial; inert elsewhere
+              'ngrok-skip-browser-warning': 'true',
+            },
+          }
         )
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const buf = await res.arrayBuffer()
